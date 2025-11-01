@@ -47,7 +47,7 @@ export default function Navbar() {
           <Link href="/cart">
             <ShoppingBag className="w-5 h-5 text-white hover:opacity-80" />
           </Link>
-          <Link href="/account">
+          <Link href="/Account">
             <User className="w-5 h-5 text-white hover:opacity-80" />
           </Link>
         </div>
