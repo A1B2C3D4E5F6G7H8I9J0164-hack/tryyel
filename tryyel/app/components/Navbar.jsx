@@ -3,10 +3,11 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, Heart, ShoppingBag, User, X } from "lucide-react";
+import { Menu, ShoppingBag, User, X, Search } from "lucide-react";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
 
   const navLinks = [
     { name: "Women", href: "/women" },
@@ -19,14 +20,6 @@ export default function Navbar() {
     <header className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-[#011219] shadow-md z-50">
       {/* Top bar */}
       <div className="flex items-center justify-between px-4 h-14">
-        {/* Hamburger */}
-        <button
-          className="text-white"
-          onClick={() => setOpen(!open)}
-          aria-label="Toggle menu"
-        >
-          {open ? <X size={22} /> : <Menu size={22} />}
-        </button>
 
         {/* Center Logo */}
         <Link href="/" className="flex items-center justify-center">
@@ -39,19 +32,48 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Right Icons */}
-        <div className="flex items-center space-x-3">
-          <Link href="/wishlist">
-            <Heart className="w-5 h-5 text-white hover:opacity-80" />
-          </Link>
+        {/* Right Side: Icons */}
+        <div className="flex items-center space-x-4">
+          {/* Search Icon */}
+          <button
+            onClick={() => setShowSearch(true)}
+            className="text-white hover:opacity-80"
+          >
+            <Search className="w-5 h-5" />
+          </button>
+
+          {/* Cart */}
           <Link href="/cart">
             <ShoppingBag className="w-5 h-5 text-white hover:opacity-80" />
           </Link>
+
+          {/* Account */}
           <Link href="/account">
             <User className="w-5 h-5 text-white hover:opacity-80" />
           </Link>
         </div>
       </div>
+
+      {/* Search Overlay */}
+      {showSearch && (
+        <div className="absolute inset-0 bg-[#011219]/95 flex items-center px-4">
+          <div className="flex items-center w-full space-x-2">
+            <Search className="w-5 h-5 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search products..."
+              className="flex-1 bg-transparent border-none outline-none text-white placeholder-gray-400 text-sm"
+              autoFocus
+            />
+            <button
+              onClick={() => setShowSearch(false)}
+              className="text-gray-400 hover:text-white"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Dropdown Menu */}
       {open && (
